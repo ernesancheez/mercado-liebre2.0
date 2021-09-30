@@ -11,7 +11,7 @@ const controller = {
 	// Root - Show all products
 	index: (req, res) => {
 		return res.render('products', {
-			products,
+			products : JSON.parse(fs.readFileSync(path.join(__dirname,'..','data','productsDataBase.json'),'utf-8')),
 			toDiscount,
 			toThousand
 		})
@@ -58,20 +58,21 @@ const controller = {
 	// Update - Method to update
 	update: (req, res) => {
 		const {name, price, discount, category, description} = req.body;
+		let product = products.find(product => product.id === +req.params.id)
 
 		let productModified = {
-			id: req.params.id,
+			id: +req.params.id,
             name: name.trim(),
             price: +price,
             discount: +discount,
-            category,
+            category: product.category,
             description: description.trim(),
-            image: 'default-image.png',
+            image: product.image
 		}
 		let productsModified = products.map(product => product.id === +req.params.id ? productModified : product)
 		products.push(product)
 		fs.writeFileSync(path.join(__dirname, '..', 'data', 'productsDataBase.json'), JSON.stringify(productsModified,null,3), 'utf-8')
-		res.redirect('/products/detail/' + req.params.id)
+		return res.redirect('/products')
 	},
 
 	// Delete - Delete one product from DB

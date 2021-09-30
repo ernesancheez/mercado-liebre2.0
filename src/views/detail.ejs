@@ -17,7 +17,7 @@
 		<div class="product-detail">
 			<div class="row">
 				<div class="col-12 col-lg-8">
-					<img src="/images/products/<%= product.image %> " alt="product image" class="product-detail-img">
+					<img src="/images/products/<%= product.image %>" alt="product image" class="product-detail-img">
 					<p class="product-detail-description">
 						<%= product.description %> 
 					</p>
@@ -29,7 +29,7 @@
 							<p class="product-detail-price small">
 								<span> $ <%= product.price %> </span>
 								/
-								<b> <%= product.discount %> </b>
+								<b>  <%= product.discount %> % Off</b>
 							</p>
 							<p class="product-detail-price">
 								<%= toDiscount(product.price, product.discount) %> 
